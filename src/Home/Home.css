@@ -1,0 +1,15 @@
+.centered-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh; /* Optional: makes the container take up the full height of the viewport */
+  }
+  
+  .centered-list {
+    font-size: 40px;
+    list-style-type: none;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
