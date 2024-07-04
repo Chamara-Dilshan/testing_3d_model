@@ -7,7 +7,7 @@ function Home() {
       <div className="centered-container">
         <ul className="centered-list">
           <li><Link to="/test1">Test 1</Link></li>
-          <li>Test 2</li>
+          <li><Link to="/test2">Test 2</Link></li>
           <li>Test 3</li>
         </ul>
       </div>
