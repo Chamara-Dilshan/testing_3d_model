@@ -4,53 +4,119 @@ import {Suspense, useRef,useState} from 'react'
 import { Canvas} from '@react-three/fiber'
 import {OrbitControls, useGLTF} from '@react-three/drei'
 
+function Model({...props}) {
+    const group = useRef()
+    const { nodes, materials } = useGLTF('/shoe.gltf')
+    return (
+      <group  ref={group} {...props} dispose={null} scale={3}>
+        <mesh geometry={nodes.shoe.geometry} material={materials.laces} material-color={props.customColors.stripes}/>
+        <mesh geometry={nodes.shoe_1.geometry} material={materials.mesh} material-color={props.customColors.mesh}/>
+        <mesh geometry={nodes.shoe_2.geometry} material={materials.caps} material-color={props.customColors.sole}/>
+        <mesh geometry={nodes.shoe_3.geometry} material={materials.inner} material-color={props.customColors.inner}/>
+        <mesh geometry={nodes.shoe_4.geometry} material={materials.sole} material-color={props.customColors.sole}/>
+        <mesh geometry={nodes.shoe_5.geometry} material={materials.stripes} material-color={props.customColors.stripes}/>
+        <mesh geometry={nodes.shoe_6.geometry} material={materials.band} material-color={props.customColors.stripes}/>
+        <mesh geometry={nodes.shoe_7.geometry} material={materials.patch} material-color={props.customColors.patch}/>
+      </group>
+    )
+  }
+  
+
 function Test_2() {
 
-  return (
-    <div>
-        <div className="wrapper">
-            <div className="card">
-                <div className="product-canvas">
-                    <Canvas>
-                    </Canvas>
-                </div>
-                <h2>Color chooser</h2>
-                <div className='colors'>
-                    <div>
-                        <input 
-                            type="color" 
-                            id="head" 
-                            name="head"
-                            value="#e66465" 
-                        />
-                        <label for="head">Main Color</label>
+    const[mesh,setMesh]=useState("#ffffff")
+    const[stripes,setStripes]=useState("#ffffff")
+    const[sole,setSole]=useState("#ffffff")
+    const[patch,setPatch]=useState("#ffffff")
+    const[inner,setInner]=useState("#ffffff")
+
+    return (
+        <div>
+            <div className="wrapper">
+                <div className="wrapper2">
+                    <div className="wrapper3">
+                        <h1>Color chooser</h1>
+                        <div className='colors'>
+                            <div className="color-item">
+                                <label for="mesh">Mesh</label>
+                                <input 
+                                    type="color" 
+                                    id="mesh" 
+                                    name="mesh"
+                                    value={mesh}
+                                    onChange={(e) => setMesh(e.target.value)}
+                                />
+                            </div>
+
+                            <div className="color-item">
+                                <label for="stripes">Stripes</label>
+                                <input 
+                                    type="color" 
+                                    id="stripes" 
+                                    name="stripes"
+                                    value={stripes}
+                                    onChange={(e) => setStripes(e.target.value)}
+                                />
+                            </div>
+                            <div className="color-item">
+                                <label for="sole">Soul</label>
+                                <input 
+                                    type="color" 
+                                    id="sole" 
+                                    name="sole" 
+                                    value={sole}
+                                    onChange={(e) => setSole(e.target.value)}
+                                />
+                            </div>
+                            <div className="color-item">
+                                <label for="sole">patch</label>
+                                <input 
+                                    type="color" 
+                                    id="patch" 
+                                    name="patch" 
+                                    value={patch}
+                                    onChange={(e) => setPatch(e.target.value)}
+                                />
+                            </div>
+                            <div className="color-item">
+                                <label for="sole">inner</label>
+                                <input 
+                                    type="color" 
+                                    id="inner" 
+                                    name="inner" 
+                                    value={inner}
+                                    onChange={(e) => setInner(e.target.value)}
+                                />
+                            </div>
+                        </div>
                     </div>
 
-                    <div>
-                        <input 
-                            type="color" 
-                            id="body" 
-                            name="body"
-                            value="#f6b73c" 
-                        />
-                        <label for="body">Stripes</label>
-                    </div>
-                    <div>
-                        <input 
-                            type="color" 
-                            id="body" 
-                            name="body" 
-                            value="#f6b73c" 
-                        />
-                        <label for="body">Soul</label>
+                    <div className="product-canvas0">
+                        <Canvas>
+                            <Suspense fallback={null}>
+                                <ambientLight intensity={3}/>
+                                <spotLight 
+                                    intensity={300} 
+                                    angle={0.1} 
+                                    penumbra={1}
+                                    position={[10,15,10]}
+                                    castShadow
+                                />
+                                <Model customColors={{mesh:mesh, stripes:stripes, sole:sole, patch:patch, inner:inner}}/>
+                                <OrbitControls
+                                    enablePan={true}
+                                    enableZoom={true}
+                                    enableRotate={true}
+                                />
+                            </Suspense>
+                        </Canvas>
                     </div>
                 </div>
             </div>
-        </div>
-     
+        
 
-    </div>
-  )
+        </div>
+    )
 }
 
 export default Test_2
