@@ -8,7 +8,7 @@ function Model1({...props}) {
     const group = useRef()
     const { nodes, materials } = useGLTF('/shoe.gltf')
     return (
-      <group  ref={group} {...props} dispose={null} position={[0, +0.5, 0]} scale={3}>
+      <group  ref={group} {...props} dispose={null} position={[0, +0.5, 0]} scale={2.8}>
         <mesh geometry={nodes.shoe.geometry} material={materials.laces} material-color={props.customColors.stripes}/>
         <mesh geometry={nodes.shoe_1.geometry} material={materials.mesh} material-color={props.customColors.mesh}/>
         <mesh geometry={nodes.shoe_2.geometry} material={materials.caps} material-color={props.customColors.sole}/>
