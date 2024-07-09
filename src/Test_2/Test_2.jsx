@@ -4,11 +4,11 @@ import {Suspense, useRef,useState} from 'react'
 import { Canvas} from '@react-three/fiber'
 import {OrbitControls, useGLTF} from '@react-three/drei'
 
-function Model({...props}) {
+function Model1({...props}) {
     const group = useRef()
     const { nodes, materials } = useGLTF('/shoe.gltf')
     return (
-      <group  ref={group} {...props} dispose={null} scale={3}>
+      <group  ref={group} {...props} dispose={null} position={[0, +0.5, 0]} scale={3}>
         <mesh geometry={nodes.shoe.geometry} material={materials.laces} material-color={props.customColors.stripes}/>
         <mesh geometry={nodes.shoe_1.geometry} material={materials.mesh} material-color={props.customColors.mesh}/>
         <mesh geometry={nodes.shoe_2.geometry} material={materials.caps} material-color={props.customColors.sole}/>
@@ -19,9 +19,18 @@ function Model({...props}) {
         <mesh geometry={nodes.shoe_7.geometry} material={materials.patch} material-color={props.customColors.patch}/>
       </group>
     )
-  }
-  
+}
 
+function Model2({...props}) {
+    const group = useRef()
+    const { nodes, materials } = useGLTF('/Corset.gltf')
+    return (
+      <group ref={group} {...props} dispose={null} position={[0, -2, 0]} scale={80}>
+        <mesh geometry={nodes.Corset.geometry} material={materials.Corset_O} material-color={props.customColors.main}/>
+      </group>
+    )
+}
+  
 function Test_2() {
 
     const[mesh,setMesh]=useState("#ffffff")
@@ -29,67 +38,102 @@ function Test_2() {
     const[sole,setSole]=useState("#ffffff")
     const[patch,setPatch]=useState("#ffffff")
     const[inner,setInner]=useState("#ffffff")
+    const [selectedModel, setSelectedModel] = useState('Model1');
+    const [main, setMain] = useState("#ffffff");
 
     return (
         <div>
             <div className="wrapper">
                 <div className="wrapper2">
                     <div className="wrapper3">
+                        <div className="model-selection">
+                            <button 
+                                onClick={() => setSelectedModel('Model1')}
+                                className={selectedModel === 'Model1' ? 'active' : ''}
+                            >
+                                Model 1
+                            </button>
+                            <button 
+                                onClick={() => setSelectedModel('Model2')}
+                                className={selectedModel === 'Model2' ? 'active' : ''}
+                            >
+                                Model 2
+                            </button>
+                        </div>
                         <h1>Color chooser</h1>
                         <div className='colors'>
-                            <div className="color-item">
-                                <label for="mesh">Mesh</label>
-                                <input 
-                                    type="color" 
-                                    id="mesh" 
-                                    name="mesh"
-                                    value={mesh}
-                                    onChange={(e) => setMesh(e.target.value)}
-                                />
-                            </div>
+                            {selectedModel === 'Model1' && (
+                                <>
+                                    <div className="color-item">
+                                        <label for="mesh">Mesh</label>
+                                        <input 
+                                            type="color" 
+                                            id="mesh" 
+                                            name="mesh"
+                                            value={mesh}
+                                            onChange={(e) => setMesh(e.target.value)}
+                                        />
+                                    </div>
 
-                            <div className="color-item">
-                                <label for="stripes">Stripes</label>
-                                <input 
+                                    <div className="color-item">
+                                        <label for="stripes">Stripes</label>
+                                        <input 
+                                            type="color" 
+                                            id="stripes" 
+                                            name="stripes"
+                                            value={stripes}
+                                            onChange={(e) => setStripes(e.target.value)}
+                                        />
+                                    </div>
+                                    <div className="color-item">
+                                        <label for="sole">Soul</label>
+                                        <input 
+                                            type="color" 
+                                            id="sole" 
+                                            name="sole" 
+                                            value={sole}
+                                            onChange={(e) => setSole(e.target.value)}
+                                        />
+                                    </div>
+                                    <div className="color-item">
+                                        <label for="sole">patch</label>
+                                        <input 
+                                            type="color" 
+                                            id="patch" 
+                                            name="patch" 
+                                            value={patch}
+                                            onChange={(e) => setPatch(e.target.value)}
+                                        />
+                                    </div>
+                                    <div className="color-item">
+                                        <label for="sole">inner</label>
+                                        <input 
+                                            type="color" 
+                                            id="inner" 
+                                            name="inner" 
+                                            value={inner}
+                                            onChange={(e) => setInner(e.target.value)}
+                                        />
+                                    </div>
+                                </>
+                            )}
+                            {selectedModel === 'Model2' && (
+                                <div className="color-item">
+                                    <label htmlFor="main">Main Color</label>
+                                    <input 
                                     type="color" 
-                                    id="stripes" 
-                                    name="stripes"
-                                    value={stripes}
-                                    onChange={(e) => setStripes(e.target.value)}
-                                />
-                            </div>
-                            <div className="color-item">
-                                <label for="sole">Soul</label>
-                                <input 
-                                    type="color" 
-                                    id="sole" 
-                                    name="sole" 
-                                    value={sole}
-                                    onChange={(e) => setSole(e.target.value)}
-                                />
-                            </div>
-                            <div className="color-item">
-                                <label for="sole">patch</label>
-                                <input 
-                                    type="color" 
-                                    id="patch" 
-                                    name="patch" 
-                                    value={patch}
-                                    onChange={(e) => setPatch(e.target.value)}
-                                />
-                            </div>
-                            <div className="color-item">
-                                <label for="sole">inner</label>
-                                <input 
-                                    type="color" 
-                                    id="inner" 
-                                    name="inner" 
-                                    value={inner}
-                                    onChange={(e) => setInner(e.target.value)}
-                                />
-                            </div>
+                                    id="main" 
+                                    name="main" 
+                                    value={main}
+                                    onChange={(e) => setMain(e.target.value)}
+                                    />
+                                </div>
+                            )}
+                           
                         </div>
                     </div>
+
+
 
                     <div className="product-canvas0">
                         <Canvas>
@@ -102,7 +146,15 @@ function Test_2() {
                                     position={[10,15,10]}
                                     castShadow
                                 />
-                                <Model customColors={{mesh:mesh, stripes:stripes, sole:sole, patch:patch, inner:inner}}/>
+                                {/* <Model1 customColors={{mesh:mesh, stripes:stripes, sole:sole, patch:patch, inner:inner}}/> */}
+
+                                {selectedModel === 'Model1' && (
+                                    <Model1 customColors={{ mesh: mesh, stripes: stripes, sole: sole, patch: patch, inner: inner }} />
+                                )}
+                                {selectedModel === 'Model2' && (
+                                    <Model2 customColors={{ main: main }}/>
+                                )}
+
                                 <OrbitControls
                                     enablePan={true}
                                     enableZoom={true}

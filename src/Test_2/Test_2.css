@@ -65,3 +65,28 @@ h1{
     margin-bottom: 15px; 
 }
 
+.model-selection{
+    margin-bottom: 10px; 
+    
+}
+
+.model-selection button {
+    padding: 10px 20px;
+    margin: 10px;
+    border: none;
+    border-radius: 5px;
+    background-color: #007bff;
+    color: white;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .model-selection button:hover {
+    background-color: #0056b3;
+  }
+  
+  .model-selection button.active {
+    background-color: #0056b3;
+  }
+
